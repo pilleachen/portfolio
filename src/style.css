@@ -201,7 +201,7 @@ ul {
   padding-right: 2rem;
   position: relative;
   /* Context for bubble positioning */
-  z-index: 5;
+  z-index: 100;
 }
 
 .hero-title {
@@ -256,108 +256,6 @@ ul {
 
 /* Keep buttons clickable above everything */
 /* View Work Wrapper */
-.view-work-wrapper {
-  position: relative;
-  display: inline-block;
-}
-
-/* Project Preview Bubble */
-.project-preview-bubble {
-  position: absolute;
-  top: -180px;
-  /* Moved up to appear clearly above button */
-  left: -20px;
-  width: 450px;
-  height: 400px;
-  padding: 3rem;
-  background: rgba(255, 255, 255, 0.95);
-
-  /* Morphing Shape Styles */
-  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-  animation: morph 8s ease-in-out infinite;
-  border: 5px solid rgba(197, 160, 89, 0.3);
-  box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.1), -20px -20px 60px #ffffff;
-
-  /* Display & State */
-  opacity: 0;
-  visibility: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  transform: scale(0.8);
-  transform-origin: center;
-  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
-  pointer-events: none;
-  z-index: 1000;
-  /* Highest z-index */
-}
-
-/* Full Screen Blur Backdrop - Independent Element */
-.bubble-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(253, 251, 247, 0.4);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 999;
-  /* Below bubble (1000) but above everything else */
-  pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.4s ease, visibility 0.4s;
-}
-
-/* Trigger Bubble on Wrapper Hover */
-.view-work-wrapper:hover .project-preview-bubble {
-  opacity: 1;
-  visibility: visible;
-  transform: scale(1);
-}
-
-.view-work-wrapper:hover .bubble-backdrop {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.bubble-content {
-  text-align: center;
-  max-width: 80%;
-  position: relative;
-  z-index: 1001;
-  /* Ensure text is above bubble background */
-}
-
-.bubble-content h3 {
-  font-family: var(--font-serif);
-  color: var(--accent-gold);
-  margin-bottom: 1.5rem;
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-.bubble-item {
-  margin-bottom: 1.5rem;
-}
-
-/* Keep text sharp against morphing background */
-.bubble-item span {
-  display: block;
-  font-weight: 700;
-  color: var(--text-primary);
-  font-size: 1.1rem;
-  margin-bottom: 0.3rem;
-}
-
-.bubble-item p {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.4;
-}
 
 .btn {
   display: inline-block;
@@ -1054,4 +952,28 @@ ul {
 .scramble-text {
   display: inline-block;
   cursor: default;
+}
+
+/* Valentine Experience Styles */
+.valentine-entry-container {
+  margin-top: 1.5rem;
+}
+
+.valentine-special-btn {
+  background: linear-gradient(135deg, #ff4d6d, #ff758f);
+  color: white !important;
+  border: none !important;
+  box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+  font-family: 'Poppins', sans-serif;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.valentine-special-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(255, 77, 109, 0.6);
+  background: linear-gradient(135deg, #ff758f, #ff4d6d);
 }
