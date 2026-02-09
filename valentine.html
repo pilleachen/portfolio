@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --pink-bg: #ffeef2;
+            --pink-primary: #ff4d6d;
+            --pink-secondary: #ff758f;
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--pink-bg);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            transition: background-color 0.5s ease;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 2rem;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3.5rem;
+            color: var(--pink-primary);
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            position: relative;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #yes-btn {
+            background-color: var(--pink-primary);
+            color: var(--white);
+        }
+
+        #yes-btn:hover {
+            background-color: var(--pink-secondary);
+            transform: scale(1.1);
+        }
+
+        #no-btn {
+            background-color: var(--white);
+            color: var(--pink-primary);
+            position: absolute;
+            /* Needed for teleportation */
+            left: calc(50% + 50px);
+        }
+
+        /* Success State */
+        .success-content {
+            display: none;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-message {
+            font-size: 2.5rem;
+            color: var(--pink-primary);
+            font-family: 'Pacifico', cursive;
+            margin-bottom: 1rem;
+        }
+
+        .scan-text {
+            font-size: 1.2rem;
+            color: var(--pink-secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .surprise-img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 5px solid white;
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Hearts animation */
+        .heart {
+            position: fixed;
+            color: var(--pink-primary);
+            font-size: 1.5rem;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="main-content">
+            <h1>Will you be my Valentine?</h1>
+            <div class="buttons">
+                <button id="yes-btn" class="btn">Yes</button>
+                <button id="no-btn" class="btn">No</button>
+            </div>
+        </div>
+
+        <div id="success-content" class="success-content">
+            <h2 class="success-message">Yay! I knew you would say yes!</h2>
+            <p class="scan-text">Scan to see more!</p>
+            <div class="image-container">
+                <img src="assets/val.png" alt="Valentine Illustration" class="surprise-img">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        const noBtn = document.getElementById('no-btn');
+        const yesBtn = document.getElementById('yes-btn');
+        const mainContent = document.getElementById('main-content');
+        const successContent = document.getElementById('success-content');
+
+        // Teleport Logic for No Button
+        function teleportButton() {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        noBtn.addEventListener('mouseover', teleportButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            teleportButton();
+        });
+
+        // Yes Button Logic
+        yesBtn.addEventListener('click', () => {
+            // Trigger Confetti
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff4d6d', '#ff758f', '#ff8fa3', '#ffb3c1']
+            });
+
+            // Switch Content
+            mainContent.style.display = 'none';
+            successContent.style.display = 'block';
+
+            // Floating hearts continuous effect
+            setInterval(createHeart, 300);
+        });
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '-5vh';
+            heart.style.opacity = Math.random();
+            heart.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+
+</html>
